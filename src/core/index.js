@@ -116,6 +116,7 @@
             if( !ngModel.$viewValue.split(";")[1]) {
               scope.mainSliderClass += ' jslider-single';
             }
+             if (scope.slider) {
              var vals = ngModel.$viewValue.split(";");
               scope.slider.getPointers()[0].set(vals[0], true);
               if (vals[1]) {
@@ -128,6 +129,7 @@
                   scope.slider.getPointers()[0].set(vals[0], true);
                 }
               }
+            }
           };
 
           // view -> model
