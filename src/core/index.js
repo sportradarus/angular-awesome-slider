@@ -116,19 +116,18 @@
             if( !ngModel.$viewValue.split(";")[1]) {
               scope.mainSliderClass += ' jslider-single';
             }
-
-            if (scope.slider) {
-              var firstPtr = scope.slider.getPointers()[0];
-              // reset to lowest value              
-              firstPtr.set(scope.from, true);              
-              if (ngModel.$viewValue.split(';')[1]) {
-                var secondPtr = scope.slider.getPointers()[1];              
-                // reset to biggest value              
-                firstPtr.set(scope.to, true);
-                secondPtr.set(ngModel.$viewValue.split(';')[1], true);
+             var vals = ngModel.$viewValue.split(";");
+              scope.slider.getPointers()[0].set(vals[0], true);
+              if (vals[1]) {
+                scope.slider.getPointers()[1].set(vals[1], true);
+                //when the first slider moves first and intersects with the second slider it stops
+                //moving.  as a results, if first slider needs to move past the second slider
+                //we need to make sure the first slider gets to the proper position after the 
+                //second slider has moved to its position.
+                if(parseInt(vals[1]) >parseInt(vals[0])){
+                  scope.slider.getPointers()[0].set(vals[0], true);
+                }
               }
-              firstPtr.set(ngModel.$viewValue.split(';')[0], true);
-            }
           };
 
           // view -> model
